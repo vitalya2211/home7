@@ -42,16 +42,41 @@ namespace home7
             1 4 7 2
             5 9 2 3
             8 4 2 4
-            17 -> такого числа в массиве нет
-            Задача 52. Задайте двумерный массив из целых чисел. 
-            Найдите среднее арифметическое элементов в каждом столбце.
-            Например, задан массив:
-            1 4 7 2
-            5 9 2 3
-            8 4 2 4
-            Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.*/
+            17 -> такого числа в массиве нет*/
+            void FindNum(double[,] arr, int nums,int numc)
+            {
+                Console.WriteLine(arr[nums, numc]);
+
+            }
+
+
+            /* Задача 52. Задайте двумерный массив из целых чисел. 
+             Найдите среднее арифметическое элементов в каждом столбце.
+             Например, задан массив:
+             1 4 7 2
+             5 9 2 3
+             8 4 2 4
+             Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.*/
+            double[] CallAvrge(double[,] arr, double[] avr)
+            {
+                for(int i=0;i < arr.GetLength(0);i++)
+                {
+                    for(int j=0;j<arr.GetLength(1);j++)
+                    {
+                        avr[j] += arr[i, j];
+                    }
+                    
+                }
+                for(int i=0;i<avr.Length;i++)
+                {
+                    avr[i] /= arr.GetLength(0);
+                }
+                return avr;
+            }
             double[,] array;
+            double[] avrg;
             int M, N;
+            int numStr,numCol;
             bool num;
             Console.WriteLine("Задайте двумерный массив размером M x N, заполненный случайными" +
                 " вещественными числами");
@@ -73,6 +98,22 @@ namespace home7
             array = new double[M, N];
             CreateArray(array,M,N);
             PrintArray(array, M, N);
+            Console.WriteLine("Напишите программу, которая на вход принимает позиции элемента" +
+                " в двумерном массиве,\n и возвращает значение этого элемента или же указание, " +
+                "что такого элемента нет.\n массив используется из предидущей программы ");
+            Console.Write("введите номер строки: ");
+          numStr =  int.Parse(Console.ReadLine());
+            Console.Write("введите номер колонки: ");
+            numCol = int.Parse(Console.ReadLine());
+            if (numStr <= M & numCol <= N)
+                FindNum(array,--numStr, --numCol);
+            else Console.WriteLine("нет числа");
+            Console.WriteLine("Задайте двумерный массив из целых чисел.\n" +
+                " Найдите среднее арифметическое элементов в каждом столбце.\n все тот же массив)");
+            avrg = new double[N];
+            CallAvrge(array, avrg);
+            for (int i = 0; i < avrg.Length; i++)
+                Console.Write(avrg[i] + "\t");
             Console.ReadKey();
         }
     }
